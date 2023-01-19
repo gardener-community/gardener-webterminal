@@ -1,0 +1,5 @@
+certificate:
+#  caBundle: |
+#     -----BEGIN CERTIFICATE-----
+#     ...
+#     -----END CERTIFICATE-----

@@ -1,0 +1,39 @@
+replicaCount: 1
+
+images:
+  proxy:
+    repository: quay.io/brancz/kube-rbac-proxy
+    tag: v0.13.0
+    pullPolicy: IfNotPresent
+  terminalControllerManager:
+    repository: eu.gcr.io/gardener-project/gardener/terminal-controller-manager
+    tag: v0.22.0-dev-aca4875d2fb868f87d4269492b6046ed702e0cdd
+    pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 100Mi
+  limits:
+    cpu: 200m
+    memory: 300Mi
+
+certificate:
+  certManager:
+    enabled: false
+    issuerName: sample-ca
+  cert:
+#    ca:
+#      crt: |
+#      -----BEGIN CERTIFICATE-----
+#      ...
+#      -----END CERTIFICATE-----
+#    tls:
+#      crt: |
+#      -----BEGIN CERTIFICATE-----
+#      ...
+#      -----END CERTIFICATE-----
+#      key: |
+#      -----BEGIN RSA PRIVATE KEY-----
+#      ...
+#      -----END RSA PRIVATE KEY-----
