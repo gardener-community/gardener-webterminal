@@ -1,0 +1,49 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: terminal-controller-manager-runtime
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: gardener-application
+  targetNamespace: flux-system
+  interval: 1m
+  chart:
+    spec:
+      chart: terminal-controller-manager-runtime
+      version: 0.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: gardener-community-charts
+        namespace: flux-system
+      interval: 1m
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: terminal-controller-manager-application
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: terminal-controller-manager-runtime
+  targetNamespace: flux-system
+  kubeConfig:
+    secretRef:
+      name: internal-garden-cluster-kubeconfig
+  interval: 1m
+  chart:
+    spec:
+      chart: terminal-controller-manager-application
+      version: 0.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: gardener-community-charts
+        namespace: flux-system
+      interval: 1m
+  valuesFrom:
+    - kind: Secret
+      name: terminal-webhook-server-cert
+      valuesKey: tls.crt
+      targetPath: webhook.caBundle
+      optional: false
