@@ -6,7 +6,7 @@ metadata:
     control-plane: controller-manager
   name: terminal-controller-manager
 spec:
-  replicas: {{ required ".Values.replicaCount is required" .Values.replicaCount }}
+  replicas: {{ required ".Values.global.runtime.replicaCount is required" .Values.global.runtime.replicaCount }}
   selector:
     matchLabels:
       component: terminal-manager
@@ -25,8 +25,8 @@ spec:
         - --upstream=http://127.0.0.1:8080/
         - --logtostderr=true
         - --v=0
-        image: {{ required "$.Values.images.proxy.repository is required" $.Values.images.proxy.repository }}:{{ required "$.Values.images.proxy.tag is required" $.Values.images.proxy.tag }}
-        imagePullPolicy: {{ .Values.images.proxy.pullPolicy }}
+        image: {{ required "$.Values.global.runtime.images.proxy.repository is required" $.Values.global.runtime.images.proxy.repository }}:{{ required "$.Values.global.runtime.images.proxy.tag is required" $.Values.global.runtime.images.proxy.tag }}
+        imagePullPolicy: {{ .Values.global.runtime.images.proxy.pullPolicy }}
         name: kube-rbac-proxy
         ports:
         - containerPort: 8443
@@ -56,8 +56,8 @@ spec:
         env:
         - name: KUBECONFIG
           value: /etc/terminal-controller-manager/secrets/kubeconfig/value
-        image: {{ required "$.Values.images.terminalControllerManager.repository is required" $.Values.images.terminalControllerManager.repository }}:{{ required "$.Values.images.terminalControllerManager.tag is required" $.Values.images.terminalControllerManager.tag }}
-        imagePullPolicy: {{ .Values.images.terminalControllerManager.pullPolicy }}
+        image: {{ required "$.Values.global.runtime.images.terminalControllerManager.repository is required" $.Values.global.runtime.images.terminalControllerManager.repository }}:{{ required "$.Values.global.runtime.images.terminalControllerManager.tag is required" $.Values.global.runtime.images.terminalControllerManager.tag }}
+        imagePullPolicy: {{ .Values.global.runtime.images.terminalControllerManager.pullPolicy }}
         livenessProbe:
           httpGet:
             path: /healthz
@@ -76,7 +76,7 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 10
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+{{ toYaml .Values.global.runtime.resources | indent 10 }}
         securityContext:
           allowPrivilegeEscalation: false
         volumeMounts:

@@ -11,7 +11,7 @@ webhooks:
   - v1beta1
   clientConfig:
     caBundle: |
-      {{- .Values.certificate.caBundle | b64enc | nindent 6 }}
+      {{- .Values.global.application.certificate.caBundle | b64enc | nindent 6 }}
     url: https://terminal-webhook-service.flux-system.svc/mutate-terminal
   failurePolicy: Fail
   name: mutating-create-update-terminal.gardener.cloud

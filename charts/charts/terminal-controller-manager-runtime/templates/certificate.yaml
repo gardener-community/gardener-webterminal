@@ -1,4 +1,4 @@
-{{- if .Values.certificate.certManager.enabled }}
+{{- if .Values.global.runtime.certificate.certManager.enabled }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -16,5 +16,5 @@ spec:
     - terminal-webhook-service.{{ .Release.Namespace }}.svc.cluster
     - terminal-webhook-service.{{ .Release.Namespace }}.svc.cluster.local
   issuerRef:
-    name: {{ required ".Values.certificate.certManager.issuerName is required" .Values.certificate.certManager.issuerName }}
+    name: {{ required ".Values.global.runtime.certificate.certManager.issuerName is required" .Values.global.runtime.certificate.certManager.issuerName }}
 {{- end }}
