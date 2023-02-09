@@ -1,5 +1,7 @@
-certificate:
-#  caBundle: |
-#     -----BEGIN CERTIFICATE-----
-#     ...
-#     -----END CERTIFICATE-----
+global:
+  application:
+    certificate:
+    #  caBundle: |
+    #     -----BEGIN CERTIFICATE-----
+    #     ...
+    #     -----END CERTIFICATE-----
