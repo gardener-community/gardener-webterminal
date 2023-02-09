@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart to deploy the Gardener webterminal
+name: webterminal
+version: 0.0.1
